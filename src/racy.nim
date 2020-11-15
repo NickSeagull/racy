@@ -1,7 +1,7 @@
-# This is just an example to get you started. A typical library package
-# exports the main API in this file. Note that you cannot rename this file
-# but you can remove it if you wish.
+# This is just an example to get you started. A typical hybrid package
+# uses this file as the main entry point of the application.
 
-proc add*(x, y: int): int =
-  ## Adds two files together.
-  return x + y
+import racypkg/submodule
+
+when isMainModule:
+  echo(getWelcomeMessage())

@@ -7,6 +7,6 @@
 
 import unittest
 
-import racy
-test "can add":
-  check add(5, 5) == 10
+import racypkg/submodule
+test "correct welcome":
+  check getWelcomeMessage() == "Hello, World!"

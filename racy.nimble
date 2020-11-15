@@ -5,6 +5,8 @@ author        = "Nikita Tchayka"
 description   = "A new awesome nimble package"
 license       = "Apache-2.0"
 srcDir        = "src"
+installExt    = @["nim"]
+bin           = @["racy"]
 
 
 # Dependencies
