@@ -1,8 +1,14 @@
-<div align="center">
-  <h1>Racy</h1>
-  <b>A windows automation tool</b>
-</div>
-<br>
+<h1 align="center">
+  <img src="logo.png"/>
+</h1>
+<p align="center">
+  <b>A Windows automation tool</b>
+  <br/>
+  <br/>
+  <a href="https://discord.gg/58qQaQRZGp">
+    <img alt="Discord" src="https://img.shields.io/discord/777562513994022952?label=Join%20Discord">
+  </a>
+</p>
 
 <h2>Table of contents</h2>
 
@@ -41,6 +47,6 @@ The idea of Racy is to provide a full pledged automation tool for Windows. Simil
 
 You can help the project a lot without writing any code:
 
-* Join the conversation on Discord
+* Join the conversation on [Discord](https://discord.gg/58qQaQRZGp)
 * Check [the open issues](https://github.com/NickSeagull/racy/issues)
 * Suggest ideas by [creating new issues](https://github.com/NickSeagull/racy/issues/new)
