@@ -12,3 +12,4 @@ bin           = @["racy"]
 # Dependencies
 
 requires "nim >= 1.4.0"
+requires "winim >= 3.6.0"
