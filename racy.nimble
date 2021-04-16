@@ -13,3 +13,4 @@ bin           = @["racy"]
 
 requires "nim >= 1.4.0"
 requires "winim >= 3.6.0"
+requires "patty >= 0.3.4"
