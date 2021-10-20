@@ -1,6 +1,6 @@
 module Main where
 
-import Lib
+import Racy
 
 main :: IO ()
-main = someFunc
+main = start

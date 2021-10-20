@@ -5,7 +5,7 @@ cabal-version: 1.12
 -- see: https://github.com/sol/hpack
 
 name:           racy
-version:        0.1.0.0
+version:        0.0.0.0
 description:    Please see the README on GitHub at <https://github.com/githubuser/racy#readme>
 homepage:       https://github.com/githubuser/racy#readme
 bug-reports:    https://github.com/githubuser/racy/issues
@@ -13,11 +13,7 @@ author:         Author name here
 maintainer:     example@example.com
 copyright:      2021 Author name here
 license:        BSD3
-license-file:   LICENSE
 build-type:     Simple
-extra-source-files:
-    README.md
-    ChangeLog.md
 
 source-repository head
   type: git
@@ -25,7 +21,7 @@ source-repository head
 
 library
   exposed-modules:
-      Lib
+      Racy
   other-modules:
       Paths_racy
   hs-source-dirs:
