@@ -21,6 +21,7 @@ source-repository head
 
 library
   exposed-modules:
+      Data.AutoHotkey
       Racy
   other-modules:
       Paths_racy
